@@ -19,16 +19,39 @@ else:
 
 # 2. Website Design
 st.set_page_config(page_title="Mindful Momentum", page_icon="🧘‍♂️")
-st.title("Mindful Momentum 🧘‍♂️")
-st.write("Micro-mindfulness for busy leaders.")
+# This adds a custom CSS block to change the button color to your brand blue
+st.markdown(f"""
+    <style>
+    .stButton>button {{
+        background-color: #1d6788;
+        color: white;
+        border-radius: 5px;
+        border: none;
+    }}
+    .stButton>button:hover {{
+        background-color: #154e68;
+        color: white;
+    }}
+    </style>
+    """, unsafe_content_label=True)
 
-# 3. The AI Logic
-if st.button("Generate a 30-Second Leadership Tip"):
-    with st.spinner("Consulting the AI..."):
+st.title("Mindful Momentum 🧘‍♂️")
+st.subheader("Micro-mindfulness for busy leaders.")
+
+# 3. The Menu
+category = st.selectbox(
+    "What kind of reset do you need?",
+    ["Mental Focus", "Physical Stretch", "Sensory Reset"]
+)
+
+# 4. The AI Logic
+if st.button(f"Generate a {category} Tip"):
+    with st.spinner(f"Creating your {category} moment..."):
         try:
-            prompt = "Give me one 30-second mindfulness tip for a busy leader. Be concise and actionable."
+            # We "inject" the category into the prompt so the AI knows what to do
+            prompt = f"Give me one 30-second {category} mindfulness tip for a busy leader. Be concise, actionable, and sophisticated."
             response = model.generate_content(prompt)
-            st.success("Here is your tip:")
+            st.success(f"**Your {category} Tip:**")
             st.write(response.text)
         except Exception as e:
             st.error(f"AI Error: {e}")

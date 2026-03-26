@@ -8,7 +8,7 @@ if "GOOGLE_API_KEY" in st.secrets:
     
     # This "try" block must be indented inside the "if"
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash-latest')
+        model = genai.GenerativeModel('gemini-1.5-flash')
     except Exception:
         model = genai.GenerativeModel('gemini-2.0-flash-exp')
 else:

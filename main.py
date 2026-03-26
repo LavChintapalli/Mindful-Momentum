@@ -28,3 +28,5 @@ try:
 except Exception as e:
     print(f"\n--- ERROR ---")
     print(f"Something went wrong: {e}")
+
+    # Mindful Momentum - Version 1.0

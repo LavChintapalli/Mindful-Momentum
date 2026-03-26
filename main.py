@@ -45,9 +45,17 @@ st.write("*Micro-mindfulness for busy leaders.*")
 st.divider()
 
 # 3. The Menu
+st.markdown("#### What kind of reset do you need?")
+
+# Maintaining your preferred breathing room
+st.markdown("<br>", unsafe_allow_html=True)
+
 category = st.selectbox(
-    "What kind of reset do you need?",
-    ["Mental Focus", "Physical Stretch", "Sensory Reset"]
+    "Label is hidden", # This stays in the background for screen readers
+    options=["Mental Focus", "Physical Stretch", "Sensory Reset"],
+    index=None,        # This makes the box start empty
+    placeholder="Choose an option...", # This is the clean "Hint" inside the box
+    label_visibility="collapsed"      # This hides the redundant "Label is hidden" text
 )
 
 # 4. The AI Logic

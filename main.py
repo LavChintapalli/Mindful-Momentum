@@ -59,9 +59,8 @@ category = st.selectbox(
 )
 
 # 4. The AI Logic
-# If a category is selected, the button shows the name. 
-# If not, it just says "Generate Tip"
-button_label = f"Generate a {category} Tip" if category else "Generate a Tip"
+# We simplify the label to stay consistent and clean
+button_label = "Generate a Tip"
 
 if st.button(button_label):
     if not category:
@@ -72,7 +71,7 @@ if st.button(button_label):
                 prompt = f"Give me one 30-second {category} mindfulness tip for a busy leader. Be concise, actionable, and sophisticated."
                 response = model.generate_content(prompt)
                 
-                # Your beautiful Card UI
+                # Your Card UI remains exactly the same
                 st.markdown(f"""
                     <div style="
                         background-color: white; 

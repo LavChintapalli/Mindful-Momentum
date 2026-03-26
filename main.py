@@ -19,21 +19,25 @@ else:
 
 # 2. Website Design
 st.set_page_config(page_title="Mindful Momentum", page_icon="🧘‍♂️")
-# This adds a custom CSS block to change the button color to your brand blue
-st.markdown(f"""
+
+# Define the style separately to avoid formatting errors
+brand_css = """
     <style>
-    .stButton>button {{
+    .stButton>button {
         background-color: #1d6788;
         color: white;
         border-radius: 5px;
         border: none;
-    }}
-    .stButton>button:hover {{
+    }
+    .stButton>button:hover {
         background-color: #154e68;
         color: white;
-    }}
+    }
     </style>
-    """, unsafe_content_html=True)
+"""
+
+# Now pass that variable to Streamlit
+st.markdown(brand_css, unsafe_allow_html=True)
 
 st.title("Mindful Momentum 🧘‍♂️")
 st.subheader("Micro-mindfulness for busy leaders.")

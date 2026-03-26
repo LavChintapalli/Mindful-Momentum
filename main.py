@@ -8,9 +8,9 @@ if "GOOGLE_API_KEY" in st.secrets:
     
     # This "try" block must be indented inside the "if"
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-1.5-pro')
     except Exception:
-        model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        model = genai.GenerativeModel('gemini-2.0-pro-exp')
 else:
     # This "else" must line up with the "if" at the very start
     st.error("🔑 API Key not found! Check your Streamlit Secrets.")

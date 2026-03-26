@@ -1,19 +1,20 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 1. Access the "Vault" (Streamlit Secrets)
+# 1. Access the "Vault" and Auto-Select Model
 if "GOOGLE_API_KEY" in st.secrets:
-    api_key = st.secrets["GOOGLE_API_KEY"]
-    genai.configure(api_key=api_key)
+    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
     
-    # This "try" block must be indented inside the "if"
     try:
-        model = genai.GenerativeModel('gemini-1.5-pro')
-    except Exception:
-        model = genai.GenerativeModel('gemini-2.0-pro-exp')
+        # This line asks Google: "What models do you have available for me?"
+        models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+        # This picks the very first working model from that list
+        model = genai.GenerativeModel(models[0])
+    except Exception as e:
+        st.error(f"Connection Error: {e}")
+        st.stop()
 else:
-    # This "else" must line up with the "if" at the very start
-    st.error("🔑 API Key not found! Check your Streamlit Secrets.")
+    st.error("🔑 API Key not found in Streamlit Secrets!")
     st.stop()
 
 # 2. Website Design

@@ -5,7 +5,11 @@ import google.generativeai as genai
 if "GOOGLE_API_KEY" in st.secrets:
     api_key = st.secrets["GOOGLE_API_KEY"]
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+try:
+    model = genai.GenerativeModel('gemini-2.5-flash')
+except Exception:
+    # Fallback to the newest version if the stable one is ever retired
+    model = genai.GenerativeModel('gemini-3-flash-preview')
 else:
     st.error("🔑 API Key not found! Check your Streamlit Secrets.")
     st.stop()

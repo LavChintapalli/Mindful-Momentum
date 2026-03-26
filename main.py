@@ -55,8 +55,23 @@ if st.button(f"Generate a {category} Tip"):
             # We "inject" the category into the prompt so the AI knows what to do
             prompt = f"Give me one 30-second {category} mindfulness tip for a busy leader. Be concise, actionable, and sophisticated."
             response = model.generate_content(prompt)
-            st.success(f"**Your {category} Tip:**")
-            st.write(response.text)
+        st.markdown(f"""
+            <div style="
+                background-color: white; 
+                padding: 30px; 
+                border-radius: 15px; 
+                border: 1px solid #e0e0e0; 
+                border-top: 8px solid #1d6788; 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                margin: 20px 0;
+            ">
+                <h3 style="color: #1d6788; margin-top: 0; font-family: sans-serif;">✨ Your {category} Moment</h3>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+                <p style="color: #333; font-size: 1.15rem; line-height: 1.6; font-family: serif;">
+                    {response.text}
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
         except Exception as e:
             st.error(f"AI Error: {e}")
 

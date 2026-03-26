@@ -59,7 +59,6 @@ category = st.selectbox(
 )
 
 # 4. The AI Logic
-# We simplify the label to stay consistent and clean
 button_label = "Generate a Tip"
 
 if st.button(button_label):
@@ -71,7 +70,7 @@ if st.button(button_label):
                 prompt = f"Give me one 30-second {category} mindfulness tip for a busy leader. Be concise, actionable, and sophisticated."
                 response = model.generate_content(prompt)
                 
-                # Your Card UI remains exactly the same
+                # Your Beautiful Card UI
                 st.markdown(f"""
                     <div style="
                         background-color: white; 
@@ -89,8 +88,14 @@ if st.button(button_label):
                         </p>
                     </div>
                     """, unsafe_allow_html=True)
+
             except Exception as e:
-                st.error(f"AI Error: {e}")
+                # This is the "Graceful Fail" magic
+                if "429" in str(e):
+                    st.info("🧘‍♂️ **High Demand for Mindfulness!** Many leaders are using this tool right now. Please take a deep breath and try again in 60 seconds.")
+                else:
+                    # For any other weird error, we still show a clean message
+                    st.error("Our AI coach is taking a quick break. Please refresh the page and try again!")
 
 st.divider()
 st.caption("Developed by Lav Chintapalli | Powered by Gemini AI")

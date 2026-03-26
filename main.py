@@ -33,7 +33,7 @@ st.markdown(f"""
         color: white;
     }}
     </style>
-    """, unsafe_content_label=True)
+    """, unsafe_content_html=True)
 
 st.title("Mindful Momentum 🧘‍♂️")
 st.subheader("Micro-mindfulness for busy leaders.")

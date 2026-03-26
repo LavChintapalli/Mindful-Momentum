@@ -1,18 +1,35 @@
 import streamlit as st
-import os
+import google.generativeai as genai
 
-st.title("Diagnostic Mode 🔍")
-
-# Check 1: Is the Secret Key there?
+# 1. Access the "Vault" (Streamlit Secrets)
 if "GOOGLE_API_KEY" in st.secrets:
-    st.success("✅ Secret Key found in Streamlit Vault!")
+    api_key = st.secrets["GOOGLE_API_KEY"]
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-1.5-flash')
 else:
-    st.error("❌ Secret Key NOT found in Streamlit Vault. Check Settings > Secrets.")
+    st.error("🔑 API Key not found! Check your Streamlit Secrets.")
+    st.stop()
 
-# Check 2: What is the current folder looking like?
-st.write("Files Streamlit can see:")
-st.code(os.listdir())
+# 2. The Website Interface
+st.title("Mindful Momentum 🧘‍♂️")
+st.subheader("Leadership Presence in 30 Seconds")
 
-# Check 3: Is Streamlit library installed?
-import streamlit
-st.write(f"Streamlit Version: {streamlit.__version__}")
+if st.button("Generate a Leadership Tip"):
+    with st.spinner("Connecting to Gemini..."):
+        try:
+            # Your leadership prompt
+            response = model.generate_content("""
+            Give me one 30-second mindfulness tip for a busy leader. 
+            Randomly choose ONE category: Physical Stretch, Sensory Reset, or Mental Focus.
+            Format your response like this:
+            Category: [Category Name]
+            Tip: [Your brief tip here]
+            """)
+            
+            st.success("Success!")
+            st.write(response.text)
+            
+        except Exception as e:
+            st.error(f"Something went wrong: {e}")
+
+# Mindful Momentum - Version 1.2

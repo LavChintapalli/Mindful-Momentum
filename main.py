@@ -40,7 +40,9 @@ brand_css = """
 st.markdown(brand_css, unsafe_allow_html=True)
 
 st.title("Mindful Momentum 🧘‍♂️")
-st.write("Micro-mindfulness for busy leaders.")
+st.write("*Micro-mindfulness for busy leaders.*")
+
+st.divider()
 
 # 3. The Menu
 category = st.selectbox(
